@@ -1,5 +1,5 @@
 {
-  "_comment": "Copy these hook blocks into your ~/.claude/settings.json (merge with existing hooks). Replace /ABS/PATH/TO with the absolute path where you cloned this repo. The PreToolUse 'Skill' block is optional (see hook_skill_sound.py).",
+  "_comment": "Copy the hook blocks you want into your ~/.claude/settings.json (merge with existing hooks). Replace /ABS/PATH/TO with the absolute path where you cloned this repo. NEVER add 'async: true' to these — async hooks lose the audio session. The PreToolUse blocks are optional.",
   "hooks": {
     "Stop": [
       { "hooks": [ { "type": "command", "command": "python /ABS/PATH/TO/claude-bordcomputer-sounds/play_sound.py stop", "timeout": 8 } ] }
@@ -8,13 +8,14 @@
       { "hooks": [ { "type": "command", "command": "python /ABS/PATH/TO/claude-bordcomputer-sounds/play_sound.py notify", "timeout": 8 } ] }
     ],
     "PreCompact": [
-      { "hooks": [ { "type": "command", "command": "python /ABS/PATH/TO/claude-bordcomputer-sounds/play_sound.py precompact", "timeout": 8 } ] }
+      { "hooks": [ { "type": "command", "command": "python /ABS/PATH/TO/claude-bordcomputer-sounds/play_sound.py memory", "timeout": 8 } ] }
     ],
     "SessionStart": [
       { "hooks": [ { "type": "command", "command": "python /ABS/PATH/TO/claude-bordcomputer-sounds/play_sound.py boot", "timeout": 10 } ] }
     ],
     "PreToolUse": [
-      { "matcher": "Skill", "hooks": [ { "type": "command", "command": "python /ABS/PATH/TO/claude-bordcomputer-sounds/hook_skill_sound.py" } ] }
+      { "matcher": "Skill", "hooks": [ { "type": "command", "command": "python /ABS/PATH/TO/claude-bordcomputer-sounds/hook_skill_sound.py" } ] },
+      { "matcher": "mcp__mempalace__mempalace_", "hooks": [ { "type": "command", "command": "python /ABS/PATH/TO/claude-bordcomputer-sounds/hook_mempalace_sound.py" } ] }
     ]
   }
 }
