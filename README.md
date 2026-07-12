@@ -2,6 +2,9 @@
 
 Turn [Claude Code](https://docs.anthropic.com/en/docs/claude-code) into a Star-Trek-style ship's computer. Acoustic hook signals so you **hear** what Claude is doing without staring at the terminal — built for people who run Claude in auto-accept mode and tab away.
 
+> [!IMPORTANT]
+> Enjoying this? You can support development on **[Ko-fi](https://ko-fi.com/keilerhirsch)** ☕ — please mention *Bordcomputer Sounds*.
+
 - ✅ short **done** blip when Claude finishes a turn
 - 🔔 **attention** chirp when Claude needs your input/permission
 - 🚀 deep **power-up** on session start
