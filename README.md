@@ -91,7 +91,7 @@ If you add `"async": true`, Claude spawns the hook **detached**, which loses the
 
 ## Sounds & licensing
 
-- **The code** in this repo is MIT (see [LICENSE](LICENSE)).
+- **The code** in this repo is GPLv3 (see [LICENSE](LICENSE)).
 - **The sound clips are Star Trek sound effects © Paramount/CBS.** They are **not** included here. `download_sounds.py` fetches them from [TrekCore](https://www.trekcore.com/audio/), which hosts them for **personal/fan use**. Use them privately; don't redistribute them.
 - Prefer your own audio? Use any MP3s with the stem names from `download_sounds.py` and skip the downloader.
 
