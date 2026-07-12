@@ -7,7 +7,10 @@ only on real WRITE tools (not reads/searches), SYNC, and NEVER blocks.
 
 >>> EDIT SAVE_TOOLS for your own memory/MCP write tools. <<<
 """
-import sys, os, json, subprocess
+import sys
+import os
+import json
+import subprocess
 
 # MCP tool names that represent an actual memory WRITE (not a read/search)
 SAVE_TOOLS = {

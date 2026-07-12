@@ -7,7 +7,9 @@ NOT shipped in this repo — this script fetches them for your local install.
 Prefer your own sounds? Drop MP3s with the same stem names into sounds/ and
 skip this script. Everything is just file stems.
 """
-import os, sys, urllib.request
+import os
+import sys
+import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SNDDIR = os.path.join(HERE, "sounds")
@@ -37,7 +39,11 @@ UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) claude-bordcomputer-sounds"
 
 def fetch(stem, path):
     dest = os.path.join(SNDDIR, stem + ".mp3")
-    req = urllib.request.Request(BASE + path, headers={"User-Agent": UA})
+    url = BASE + path
+    if not url.startswith("https://"):
+        print(f"  ! {stem}: refusing non-https URL")
+        return False
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
             data = r.read()

@@ -17,7 +17,11 @@ so the sound plays "successfully" but you hear nothing. Sync = audible.
 
 Fails silent — a missing player or sound never breaks the hook chain.
 """
-import sys, os, shutil, subprocess
+import sys
+import os
+import re
+import shutil
+import subprocess
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SNDDIR = os.path.join(HERE, "sounds")
@@ -83,6 +87,10 @@ def _unix_play(path, cap_ms):
 
 
 def play(name):
+    # A hook could hand us an unexpected name; only ever play a known-shaped stem
+    # from our own sounds/ dir — never let it traverse the path or point elsewhere.
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", name or ""):
+        return
     path = os.path.join(SNDDIR, f"{name}.mp3")
     if not os.path.exists(path):
         return

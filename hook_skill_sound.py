@@ -13,7 +13,10 @@ plugin-prefixed skill names alike (e.g. "ecc:code-review" matches "review").
 >>> This is the author's mapping (OSINT/security workflow). EDIT freely:
     add your own (keyword, sound) pairs, point them at your own MP3 stems. <<<
 """
-import sys, os, json, subprocess
+import sys
+import os
+import json
+import subprocess
 
 # Exact skill name -> sound stem (checked first; use for overrides)
 SKILL_SOUNDS = {}
