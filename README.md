@@ -1,4 +1,9 @@
-# 🖖 claude-bordcomputer-sounds
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/logo-dark.svg">
+    <img alt="Claude Bordcomputer Sounds" src="docs/logo-light.svg" width="470">
+  </picture>
+</div>
 
 Turn [Claude Code](https://docs.anthropic.com/en/docs/claude-code) into a Star-Trek-style ship's computer. Acoustic hook signals so you **hear** what Claude is doing without staring at the terminal — built for people who run Claude in auto-accept mode and tab away.
 
