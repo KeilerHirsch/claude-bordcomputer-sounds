@@ -4,5 +4,7 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/) and [
 Released versions are listed under [GitHub Releases](https://github.com/KeilerHirsch/claude-bordcomputer-sounds/releases).
 
 ## [Unreleased]
+
+## [1.0.0] - 2026-07-13
 ### Added
 - Repository hygiene files (CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, CI) per the KeilerHirsch repo standard.
