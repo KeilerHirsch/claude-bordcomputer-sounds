@@ -1,0 +1,14 @@
+# Security scan config.  Run:  bandit -c pyproject.toml -r .
+#
+# This repo IS a local sound player for Claude Code hooks: it shells out to the OS
+# audio player (afplay / mpg123 / ffplay / cvlc / paplay, or Windows MCI) and to
+# sys.executable, ALWAYS with a fixed list-form argv and no shell, and it "fails
+# silent" so a missing player never breaks the hook chain. The name it plays is
+# validated to [A-Za-z0-9_-]+ before use (play_sound.play). The following checks
+# flag exactly that inherent, reviewed pattern and are accepted repo-wide:
+#   B404 = imports subprocess     B603 = subprocess without shell=True (the SAFE form)
+#   B607 = partial exe path       B110 = try/except/pass (the deliberate fail-silent)
+# The single network fetch (download_sounds) is NOT skipped here — it keeps an inline
+# nosec next to its own explicit https-scheme guard + MP3 magic-byte validation.
+[tool.bandit]
+skips = ["B404", "B603", "B607", "B110"]

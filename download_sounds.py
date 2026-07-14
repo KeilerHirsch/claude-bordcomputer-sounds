@@ -45,7 +45,7 @@ def fetch(stem, path):
         return False
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
+        with urllib.request.urlopen(req, timeout=30) as r:  # nosec B310 -- url is the fixed https TrekCore base + a manifest path, https-asserted just above; response is MP3-magic-byte validated below
             data = r.read()
     except Exception as e:
         print(f"  ! {stem}: download failed ({e})")
