@@ -5,6 +5,8 @@
   </picture>
 </div>
 
+<p align="center"><img src="assets/showcase.svg" width="900" alt="Claude Code hook events mapped to Star-Trek-style acoustic signals: done blip, attention chirp, power-up, themed voice, memory-write, Red Alert"/></p>
+
 Turn [Claude Code](https://docs.anthropic.com/en/docs/claude-code) into a Star-Trek-style ship's computer. Acoustic hook signals so you **hear** what Claude is doing without staring at the terminal — built for people who run Claude in auto-accept mode and tab away.
 
 > [!IMPORTANT]
