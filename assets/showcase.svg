@@ -1,57 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" role="img" aria-label="Claude Bordcomputer Sounds maps Claude Code hook events to Star-Trek-style acoustic signals so you hear what Claude is doing without watching the terminal">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#1e293b"/>
-    </linearGradient>
-    <linearGradient id="bluePanel" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0e2436"/><stop offset="1" stop-color="#101a24"/>
-    </linearGradient>
-    <linearGradient id="amberPanel" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2e2411"/><stop offset="1" stop-color="#1b1810"/>
-    </linearGradient>
-  </defs>
-
-  <rect x="0" y="0" width="1280" height="640" rx="26" fill="url(#bg)"/>
-
-  <!-- Header -->
-  <text x="64" y="66" fill="#38bdf8" font-size="20" font-weight="700" letter-spacing="3">CLAUDE CODE · ACOUSTIC HOOKS</text>
-  <text x="64" y="120" fill="#f1f5f9" font-size="45" font-weight="800">Hear what Claude is doing</text>
-  <text x="64" y="152" fill="#94a3b8" font-size="19">Star-Trek-style ship's-computer signals — for when you run Claude in auto-accept and tab away.</text>
-
-  <!-- EVENT MAP panel -->
-  <rect x="64" y="188" width="640" height="368" rx="18" fill="url(#bluePanel)" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.5"/>
-  <rect x="64" y="188" width="640" height="6" rx="3" fill="#38bdf8"/>
-  <text x="92" y="230" fill="#7dd3fc" font-size="17" font-weight="700" letter-spacing="2">HOOK EVENT → SOUND</text>
-
-  <g font-size="18">
-    <circle cx="104" cy="271" r="5" fill="#22c55e"/><text x="122" y="277" fill="#e2e8f0">turn finished</text><text x="330" y="277" fill="#4ade80" font-weight="600">done blip</text>
-    <circle cx="104" cy="309" r="5" fill="#f59e0b"/><text x="122" y="315" fill="#e2e8f0">needs your input</text><text x="330" y="315" fill="#fbbf24" font-weight="600">attention chirp</text>
-    <circle cx="104" cy="347" r="5" fill="#38bdf8"/><text x="122" y="353" fill="#e2e8f0">session start</text><text x="330" y="353" fill="#7dd3fc" font-weight="600">deep power-up</text>
-    <circle cx="104" cy="385" r="5" fill="#a78bfa"/><text x="122" y="391" fill="#e2e8f0">skill runs</text><text x="330" y="391" fill="#c4b5fd" font-weight="600">themed voice</text>
-    <circle cx="104" cy="423" r="5" fill="#2dd4bf"/><text x="122" y="429" fill="#e2e8f0">memory write</text><text x="330" y="429" fill="#5eead4" font-weight="600">"regeneration cycle complete"</text>
-    <circle cx="104" cy="461" r="5" fill="#fb923c"/><text x="122" y="467" fill="#e2e8f0">blocked action</text><text x="330" y="467" fill="#fdba74" font-weight="600">"authorization required"</text>
-    <circle cx="104" cy="499" r="5" fill="#ef4444"/><text x="122" y="505" fill="#e2e8f0">dangerous action</text><text x="330" y="505" fill="#f87171" font-weight="600">Red Alert</text>
-  </g>
-
-  <!-- WHY panel -->
-  <rect x="736" y="188" width="480" height="368" rx="18" fill="url(#amberPanel)" stroke="#f59e0b" stroke-opacity="0.45" stroke-width="1.5"/>
-  <rect x="736" y="188" width="480" height="6" rx="3" fill="#f59e0b"/>
-  <text x="764" y="230" fill="#fbbf24" font-size="17" font-weight="700" letter-spacing="2">WHY IT WORKS</text>
-
-  <text x="764" y="276" fill="#fde9c7" font-size="19" font-weight="700">You don't watch every step.</text>
-  <text x="764" y="308" fill="#e2e8f0" font-size="17">But you still want to know the</text>
-  <text x="764" y="332" fill="#e2e8f0" font-size="17">moment Claude is <tspan fill="#4ade80" font-weight="700">done</tspan> or <tspan fill="#fbbf24" font-weight="700">needs you</tspan>.</text>
-
-  <g font-size="17" fill="#fde9c7">
-    <circle cx="772" cy="378" r="4" fill="#f59e0b"/><text x="788" y="384">No dependencies</text>
-    <circle cx="772" cy="410" r="4" fill="#f59e0b"/><text x="788" y="416">Pure Python + native OS audio</text>
-    <circle cx="772" cy="442" r="4" fill="#f59e0b"/><text x="788" y="448">Windows / macOS / Linux</text>
-    <circle cx="772" cy="474" r="4" fill="#f59e0b"/><text x="788" y="480">Fork &amp; remap — just file-stems</text>
-  </g>
-
-  <!-- Footer -->
-  <rect x="64" y="582" width="1152" height="34" rx="10" fill="#0b1220" stroke="#334155" stroke-width="1"/>
-  <text x="88" y="604" fill="#cbd5e1" font-size="14">
-    <tspan font-weight="700" fill="#38bdf8">A real, working example</tspan> of how far Claude Code hooks go — not a toy. Swap sounds, remap skills, delete what you don't want · GPLv3
-  </text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" font-family="'Cascadia Code','JetBrains Mono',Consolas,'Courier New',monospace" role="img" aria-label="gsoc@katana: ~/dev/bordcomputer-sounds terminal showcase"><defs><clipPath id="win"><rect x="24" y="24" width="1232" height="592" rx="12"/></clipPath></defs><rect x="0" y="0" width="1280" height="640" fill="#010409"/>
+  <rect x="24" y="24" width="1232" height="592" rx="12" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+  <g clip-path="url(#win)"><rect x="24" y="24" width="1232" height="46" fill="#161b22"/>
+    <line x1="24" y1="70" x2="1256" y2="70" stroke="#30363d" stroke-width="1"/></g>
+  <circle cx="52" cy="47" r="7" fill="#ff5f56"/><circle cx="76" cy="47" r="7" fill="#febc2e"/>
+  <circle cx="100" cy="47" r="7" fill="#27c93f"/>
+  <text x="640" y="52" fill="#8b949e" font-size="16" text-anchor="middle">gsoc@katana: ~/dev/bordcomputer-sounds</text>
+  <text x="1236" y="52" fill="#6e7681" font-size="15" text-anchor="end">bordcomputer v1.0.1</text><text x="56" y="118" font-size="19"><tspan fill="#3fb950">gsoc@katana</tspan><tspan fill="#8b949e">:</tspan><tspan fill="#58a6ff">~/dev/bordcomputer-sounds</tspan><tspan fill="#8b949e">$ </tspan><tspan fill="#e6edf3">bordcomputer --arm</tspan></text><text x="56" y="164" fill="#c9d1d9" font-size="18">&#9656; map hook events</text><text x="640" y="164" fill="#39c5cf" font-size="18">done &#183; attention &#183; alert</text><text x="56" y="200" fill="#c9d1d9" font-size="18">&#9656; themed voice pack</text><rect x="640" y="183" width="90" height="24" rx="5" fill="#238636"/><text x="685.0" y="200" fill="#e6edf3" text-anchor="middle" font-size="14" font-weight="700">loaded</text><text x="56" y="236" fill="#c9d1d9" font-size="18">&#9656; memory-write chime</text><rect x="640" y="219" width="80" height="24" rx="5" fill="#238636"/><text x="680.0" y="236" fill="#e6edf3" text-anchor="middle" font-size="14" font-weight="700">wired</text><text x="56" y="272" fill="#c9d1d9" font-size="18">&#9656; Red Alert</text><text x="640" y="272" fill="#e6edf3" font-size="18">on error</text><text x="56" y="322" fill="#8b949e" font-size="15" letter-spacing="1">// your terminal should talk back like a bridge</text><text x="56" y="384" font-size="34" font-weight="800"><tspan fill="#f85149">silent</tspan><tspan fill="#6e7681" font-size="25">  &#9472;&#9472;&#9654;  </tspan><tspan fill="#3fb950">audible</tspan><tspan fill="#8b949e" font-size="18" font-weight="600">  every hook event</tspan></text><text x="56" y="436" font-size="19"><tspan fill="#3fb950" font-weight="700">&#10003; Star-Trek signals  &#183;  done &#183; attention &#183; Red Alert</tspan></text><text x="56" y="466" font-size="16" fill="#6e7681">hear your agent work &#8212; no more staring at a silent terminal.</text><text x="56" y="512" font-size="19"><tspan fill="#3fb950">gsoc@katana</tspan><tspan fill="#8b949e">:</tspan><tspan fill="#58a6ff">~/dev/bordcomputer-sounds</tspan><tspan fill="#8b949e">$ </tspan></text><rect x="470" y="497" width="11" height="20" fill="#3fb950"/><line x1="24" y1="566" x2="1256" y2="566" stroke="#30363d" stroke-width="1"/><text x="56" y="596" font-size="15" fill="#6e7681">GPLv3 &#183; Claude Code hooks &#183; cross-platform audio</text><text x="1200" y="596" font-size="15" fill="#d29922" text-anchor="end" letter-spacing="0.5">keilerhirsch</text><rect x="1211" y="582" width="10" height="16" fill="#3fb950"/></svg>
