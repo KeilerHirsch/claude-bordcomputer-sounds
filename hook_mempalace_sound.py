@@ -3,16 +3,20 @@
 
 Example for the MemPalace MCP memory server, but the pattern works for any MCP
 tool you want to flag. Wire with a matcher for your memory tools; this plays
-only on real WRITE tools (not reads/searches), SYNC, and NEVER blocks.
+only on configured write/sync tools, not reads or searches.
 
->>> EDIT SAVE_TOOLS for your own memory/MCP write tools. <<<
+Playback is synchronous so it stays in the interactive audio session. That
+means the hook waits for the short clip (or timeout), but playback failures are
+swallowed and the hook exits successfully instead of failing the tool call.
+
+Edit SAVE_TOOLS for your own memory/MCP write tools.
 """
 import sys
 import os
 import json
 import subprocess
 
-# MCP tool names that represent an actual memory WRITE (not a read/search)
+# MCP tool names that represent an actual memory write/sync operation.
 SAVE_TOOLS = {
     "mcp__mempalace__mempalace_add_drawer",
     "mcp__mempalace__mempalace_update_drawer",
@@ -38,4 +42,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    sys.exit(0)  # never block the tool
+    sys.exit(0)  # playback failure is non-fatal for the tool hook
