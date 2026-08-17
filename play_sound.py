@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# The Man, The Mythos, The Legend : KeilerHirsch
 # Copyright (c) 2026 KeilerHirsch. Licensed under the GNU GPL v3 or later.
 """Bordcomputer sound player for Claude Code hooks.
 
@@ -11,11 +10,13 @@ Cross-platform, no third-party deps:
   - macOS   : afplay
   - Linux   : first available of mpg123 / ffplay / cvlc / paplay
 
-Runs SYNC. The Claude Code hooks that call this are NOT marked "async":
-async hooks are spawned detached and lose the interactive audio session,
-so the sound plays "successfully" but you hear nothing. Sync = audible.
+Runs synchronously. The Claude Code hooks that call this are not marked
+"async": in the documented setup, detached async hooks lose access to the
+interactive audio session. Synchronous playback therefore keeps the sound
+audible, at the cost of waiting for the short clip to finish.
 
-Fails silent — a missing player or sound never breaks the hook chain.
+Playback errors are intentionally swallowed so a missing player or sound does
+not fail the calling hook.
 """
 import sys
 import os
