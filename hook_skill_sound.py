@@ -1,17 +1,22 @@
 #!/usr/bin/env python
 """PreToolUse hook: play a themed sound when a Claude Code skill fires.
 
-Wire with matcher "Skill" so it only runs on the Skill tool. Reads the
-PreToolUse JSON on stdin, picks a sound for tool_input.skill, plays it via
-play_sound.py (SYNC, to keep the interactive audio session). NEVER blocks.
+Wire with matcher "Skill" so it only runs on the Skill tool. The hook reads the
+PreToolUse JSON from stdin, maps tool_input.skill to a configured sound, and
+plays it synchronously through play_sound.py so the interactive audio session
+remains available.
+
+Synchronous playback means the hook waits for the short clip (or timeout).
+Playback failures are swallowed and the hook exits successfully instead of
+failing the underlying tool call.
 
 Matching: exact override first (SKILL_SOUNDS), then ordered substring patterns
-(SKILL_PATTERNS) — first hit wins, so list the MOST SPECIFIC keyword first
-(e.g. "deep-audit" before the generic "audit"). Works for plain and
-plugin-prefixed skill names alike (e.g. "ecc:code-review" matches "review").
+(SKILL_PATTERNS). First match wins, so list the most specific keyword first
+(e.g. "deep-audit" before a generic "audit"). Plugin-prefixed skill names such
+as "ecc:code-review" are matched the same way.
 
->>> This is the author's mapping (OSINT/security workflow). EDIT freely:
-    add your own (keyword, sound) pairs, point them at your own MP3 stems. <<<
+This mapping reflects one OSINT/security workflow; edit it freely for your own
+skills and sound stems.
 """
 import sys
 import os
@@ -68,4 +73,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    sys.exit(0)  # never block the tool
+    sys.exit(0)  # playback failure is non-fatal for the tool hook
