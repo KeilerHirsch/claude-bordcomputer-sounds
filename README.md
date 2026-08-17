@@ -3,123 +3,82 @@
     <source media="(prefers-color-scheme: dark)" srcset="docs/logo-dark.svg">
     <img alt="Claude Bordcomputer Sounds" src="docs/logo-light.svg" width="470">
   </picture>
+
+**Audible Claude Code hook signals for people who do not want to watch the terminal all day.**
+
+[![License: GPLv3](https://img.shields.io/badge/License-GPLv3-lightgrey.svg)](LICENSE)
+
 </div>
 
-<p align="center"><img src="assets/showcase.gif" width="900" alt="Claude Code hook events mapped to Star-Trek-style acoustic signals: done blip, attention chirp, power-up, themed voice, memory-write, Red Alert"/></p>
+<p align="center"><img src="assets/showcase.gif" width="900" alt="Claude Code hook events mapped to distinct acoustic signals"/></p>
 
-Turn [Claude Code](https://docs.anthropic.com/en/docs/claude-code) into a Star-Trek-style ship's computer. Acoustic hook signals so you **hear** what Claude is doing without staring at the terminal — built for people who run Claude in auto-accept mode and tab away.
+## What it does
 
-> [!IMPORTANT]
-> Enjoying this? You can support development on **[Ko-fi](https://ko-fi.com/keilerhirsch)** ☕ — please mention *Bordcomputer Sounds*.
+This repository maps selected Claude Code hook events to short sounds so you can tell, without looking at the terminal, when a session finishes work, needs attention, starts, compacts context, or hits one of your own guard conditions.
 
-- ✅ short **done** blip when Claude finishes a turn
-- 🔔 **attention** chirp when Claude needs your input/permission
-- 🚀 deep **power-up** on session start
-- 🧠 themed **voice** when a skill runs (review, security scan, learn, OSINT…)
-- 📼 **"regeneration cycle complete"** when your memory store writes
-- 🛑 **"authorization required"** on a blocked action · 🚨 **Red Alert** on a dangerous one
+The default mapping is intentionally opinionated because it comes from a real operator setup. Everything is plain Python and editable file-stem mappings, so it is easier to adapt than to treat as a universal preset.
 
-No dependencies. Pure Python + native OS audio. Windows / macOS / Linux.
+No third-party Python packages are required.
 
-> **Heads up — this is tuned to *my* setup** (an OSINT/security workflow with a persistent memory store). That's on purpose: it's a **real, working example** of how far you can take Claude Code hooks, not a lowest-common-denominator toy. Everything is plain file-stems and small editable Python — **fork it and make it yours**: swap sounds, remap skills, delete what you don't want. The mapping below is a starting point, not a prescription.
+## Default event map
 
----
+| Hook event | Meaning | Sound stem |
+|---|---|---|
+| `Stop` | turn finished | `stop` |
+| `Notification` | permission or input needed | `notify` |
+| `PreCompact` | context about to compact | `memory` |
+| `SessionStart` | session started | `boot` |
+| `PreToolUse` (`Skill`) | selected skill categories | mapped by `hook_skill_sound.py` |
+| selected memory writes | explicit persistent-memory write | `memory` |
 
-## Why
+Additional stems such as `redalert`, `denied`, `review`, and `agentshield` are available for custom hooks.
 
-In auto-accept mode you don't watch every step — but you still want to know **the moment Claude is done** or **needs you**. A short, distinct sound does that better than glancing at the screen every 30 seconds. Tuned so it helps for hours instead of annoying you (see *Design*).
-
----
-
-## Install (2 minutes)
+## Install
 
 ```bash
 git clone https://github.com/KeilerHirsch/claude-bordcomputer-sounds.git
 cd claude-bordcomputer-sounds
-python download_sounds.py        # fetches the sounds (see Sounds & licensing)
-python play_sound.py stop        # test: you should hear it
+python download_sounds.py
+python play_sound.py stop
 ```
 
-Then copy the hook blocks you want from [`settings.example.json`](settings.example.json) into **`~/.claude/settings.json`** (merge with any existing `hooks`), replacing `/ABS/PATH/TO` with your clone path. **Restart your Claude Code session** — settings are read at launch. The next finished turn will blip. 🔊
+Then copy the hook blocks you want from [`settings.example.json`](settings.example.json) into `~/.claude/settings.json`, replace the example repository path with your local path, and restart Claude Code so the settings are reloaded.
 
----
+## Important hook behavior
 
-## Event map
+The example hooks are deliberately synchronous. In the environment this project was built for, detached async hooks lost the interactive audio session even though the subprocess itself completed. The implementation therefore keeps playback short and synchronous.
 
-| Hook event | Fires when… | Sound (stem) | Frequency |
-|---|---|---|---|
-| `Stop` | Claude finishes a turn | `stop` — short blip | very often |
-| `Notification` | Claude needs permission / input | `notify` — combadge chirp | rare |
-| `PreCompact` | context is about to be compacted (memory saves) | `memory` — *regeneration cycle complete* | rare |
-| `SessionStart` | a session starts | `boot` — power-up | once/session |
-| `PreToolUse` (`Skill`) | a skill runs | mapped voice (see below) | occasional |
-| `PreToolUse` (memory MCP write) | your memory store writes a record | `memory` | occasional |
+If your environment behaves differently, treat that as a platform/runtime detail rather than a universal Claude Code property.
 
-### Skill voices (via `hook_skill_sound.py`, substring match)
-| Skill keyword | Sound |
-|---|---|
-| `*-review` (code/pr/lang) | `review` — *diagnostic complete* |
-| `security` / `scan` / `audit` | `agentshield` — *automatic defense procedures initiated* |
-| `checkpoint` / `save` | `saved` — *transfer complete* |
-| `learn` | `learn` — *transfer of data complete* |
-| `deep-audit` / `osint` / `genealogy` | `osint` — *accessing library computer data* |
-| `emergency` | `redalert` 🚨 |
+## Playback backends
 
----
+`play_sound.py` selects a platform-native or locally available player:
 
-## Design: cool, not annoying
+- **Windows:** MCI through `winmm.dll` via `ctypes`
+- **macOS:** `afplay`
+- **Linux:** first available of `mpg123`, `ffplay`, `cvlc`, or `paplay`
 
-The whole point is to survive an 8-hour session:
+Playback failures are intentionally non-fatal so a missing player or clip does not break the hook chain. The player also validates sound names before resolving files from `sounds/`.
 
-1. **Frequency × loudness.** The most frequent event (`Stop`) uses the shortest, calmest blip. Voice lines only fire on rarer events. Critical sounds (`redalert`) are meant to grab you — and almost never fire.
-2. **Length caps.** Long ambient/klaxon clips are capped in `play_sound.py` (`CAPS`) so a 21-second alarm becomes a 4.5-second blast.
-3. **Memory sound only on *real* saves.** The memory store writes on every turn under the hood — but the sound only fires on `PreCompact` and explicit record writes, never on every `Stop`. No double-blip.
+## Customize it
 
-Deliberately **not** wired: a sound on every tool error, sub-agent stop, or build/test step — those fire too often and turn delight into noise.
+- Replace any `sounds/<stem>.mp3` with your own clip.
+- Edit `SKILL_PATTERNS` in [`hook_skill_sound.py`](hook_skill_sound.py) to map your own skill names.
+- Edit `SAVE_TOOLS` in [`hook_mempalace_sound.py`](hook_mempalace_sound.py) for the memory-write tools you actually use.
+- Call `play_sound.py redalert` or another stem from your own guard hooks when you need an audible boundary.
 
-### The one gotcha: don't mark the hooks `async`
+The frequent events should stay short and quiet; rare or dangerous events can justify stronger signals. That simple frequency-vs-attention rule is more useful than adding a sound to every tool event.
 
-If you add `"async": true`, Claude spawns the hook **detached**, which loses the interactive audio session — the sound "plays" but you hear nothing. Keep these hooks **synchronous**. The clips are short, so the blocking cost is invisible.
+## Sounds and licensing
 
----
+- **Code:** GPLv3, see [LICENSE](LICENSE).
+- **Sound clips:** not included in this repository. `download_sounds.py` fetches the default Star Trek sound effects from [TrekCore](https://www.trekcore.com/audio/). Those clips remain subject to their respective rights and are intended here for personal/fan use.
+- You can skip the downloader entirely and provide your own MP3 files using the expected stem names.
 
-## Customizing
+## Related work
 
-- **Different sounds:** drop your own `sounds/<stem>.mp3` in place. Done.
-- **Map your skills:** edit `SKILL_PATTERNS` in [`hook_skill_sound.py`](hook_skill_sound.py) — ordered `(keyword, sound)` pairs, most specific first.
-- **Memory / any MCP tool:** edit `SAVE_TOOLS` in [`hook_mempalace_sound.py`](hook_mempalace_sound.py) to flag any MCP write tool you care about.
-- **Alerts from your own guard hooks:** call the player from a hook at its block point — `redalert` (klaxon) and `denied` (*authorization required*) ship for exactly this:
-  ```python
-  import subprocess, sys, os
-  subprocess.run([sys.executable, os.path.join(HOOKS_DIR, "play_sound.py"), "redalert"])
-  ```
+This repository is the small audible layer of a broader operator workflow. The more serious notes on model selection, review gates, persistent memory, failure analysis, and upstream fixes live in **[AI Trinity](https://github.com/KeilerHirsch/ai-trinity)**.
 
----
+## License
 
-## Sounds & licensing
-
-- **The code** in this repo is GPLv3 (see [LICENSE](LICENSE)).
-- **The sound clips are Star Trek sound effects © Paramount/CBS.** They are **not** included here. `download_sounds.py` fetches them from [TrekCore](https://www.trekcore.com/audio/), which hosts them for **personal/fan use**. Use them privately; don't redistribute them.
-- Prefer your own audio? Use any MP3s with the stem names from `download_sounds.py` and skip the downloader.
-
----
-
-## Platform notes
-
-- **Windows** — native MCI (`winmm.dll` via ctypes), plays MP3, supports caps.
-- **macOS** — `afplay` (built in), caps via `-t`.
-- **Linux** — first of `mpg123` / `ffplay` / `cvlc` / `paplay` found on `PATH`.
-
-Sound fails silent everywhere: a missing player or clip never breaks your hook chain.
-
----
-
-## Part of a bigger picture
-
-This sound layer is the fun, surface-level piece of a much deeper setup. It hangs off a persistent memory store and a stack of guard hooks — because the interesting question isn't "can Claude make a noise," it's **"what actually makes an AI assistant reliable enough to trust on real work?"**
-
-That's a separate, more serious project: **[ai-trinity](https://github.com/KeilerHirsch/ai-trinity)** — *a great model is not enough.* Three pillars that make Claude actually dependable: a model you've **proven** isn't bluffing, a solid **foundation/method**, and a **persistent brain** (memory). If the hooks here made you curious how the rest fits together, that's the map. 🖖
-
----
-
-*Make it so.* 🚀
+GNU GPLv3. Maintained by **KeilerHirsch**.
