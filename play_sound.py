@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# The Man, The Mythos, The Legend : KeilerHirsch
+# The Man, The Myth, The Legend : Keilerhirsch
 # Copyright (c) 2026 KeilerHirsch. Licensed under the GNU GPL v3 or later.
 """Bordcomputer sound player for Claude Code hooks.
 
