@@ -1,38 +1,55 @@
 name: Bug report
-description: Report a problem so it can be fixed
+description: Report a reproducible hook or playback problem
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
-      value: Thanks for taking the time to file a report. Please fill out the details below.
-  - type: textarea
-    id: what-happened
+      value: |
+        Please distinguish hook matching, player invocation, and missing/inaudible audio. Do not paste private hook payloads without redaction.
+  - type: input
+    id: version
     attributes:
-      label: What happened?
-      description: A clear description of the bug and what you expected instead.
+      label: Project version / commit
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected path
+      options:
+        - play_sound.py
+        - skill hook
+        - memory/MCP hook
+        - sound download helper
+        - settings / mapping
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+      description: What event fired, what sound was expected, and what happened instead?
     validations:
       required: true
   - type: textarea
     id: repro
     attributes:
-      label: Steps to reproduce
-      placeholder: |
-        1. ...
-        2. ...
-        3. ...
+      label: Reproduction steps
+      description: Include the relevant hook/tool name and whether the process returned, timed out, failed, or completed silently.
     validations:
       required: true
-  - type: input
-    id: version
-    attributes:
-      label: Version
-      description: Which release/tag are you on?
-    validations:
-      required: false
   - type: textarea
     id: environment
     attributes:
       label: Environment
-      description: OS, versions, relevant setup.
+      description: OS, Python version, audio player/backend, and Claude Code version if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Minimal evidence
+      description: Relevant stderr/stdout or redacted hook JSON only. Remove usernames, paths, credentials, prompts, and unrelated workflow data.
     validations:
       required: false
